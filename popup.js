@@ -1191,6 +1191,46 @@ async function transcribeWithAssemblyAI(config, payload) {
   throw new Error('AssemblyAI 转写超时');
 }
 
+async function transcribeWithMiniMax(config, payload) {
+  setStatus('正在提交到 MiniMax 歌词提取...');
+  const requestBody = {
+    model: 'music-cover',
+    audio_url: payload.videoUrl,
+  };
+  addLog('minimax.preprocess.request', {
+    url: 'https://api.minimaxi.com/v1/music_cover_preprocess',
+    body: requestBody,
+  });
+
+  const { response, text, data } = await fetchJson('https://api.minimaxi.com/v1/music_cover_preprocess', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${config.apiKey}`,
+    },
+    body: JSON.stringify(requestBody),
+  });
+  addLog('minimax.preprocess.response', {
+    ok: response.ok,
+    status: response.status,
+    text: truncateText(text),
+  });
+
+  if (!response.ok) {
+    const message = typeof data === 'object' ? (data?.base_resp?.status_msg || data?.message || data?.error) : data;
+    throw new Error(message || `MiniMax 歌词提取失败：${response.status} ${text.slice(0, 300)}`);
+  }
+  if (data?.base_resp && Number(data.base_resp.status_code || 0) !== 0) {
+    throw new Error(data.base_resp.status_msg || `MiniMax 返回错误：${data.base_resp.status_code}`);
+  }
+
+  const content = String(data?.formatted_lyrics || '').trim();
+  if (!content) {
+    throw new Error('MiniMax 未返回 formatted_lyrics。这个接口主要用于音乐歌词提取，不是通用短视频口播转写。');
+  }
+  return content;
+}
+
 function extractVolcTranscript(data) {
   const candidates = [
     data?.result?.text,
@@ -1535,6 +1575,9 @@ async function callTranscribeApi(config, payload) {
   }
   if (config.provider === 'assemblyai') {
     return transcribeWithAssemblyAI(config, payload);
+  }
+  if (config.provider === 'minimax') {
+    return transcribeWithMiniMax(config, payload);
   }
 
   await ensureCustomHostPermission(config);

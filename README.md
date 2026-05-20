@@ -9,6 +9,7 @@
 - 支持直接粘贴抖音/小红书分享链接或整段分享文案后采集
 - 支持阿里百炼 DashScope Paraformer
 - 支持火山引擎/豆包语音、腾讯云 ASR、OpenAI Audio、Deepgram、AssemblyAI
+- 支持 MiniMax 歌词提取（实验）
 - 支持自定义转写 API
 - 支持下载 Markdown
 - 支持复制 Markdown
@@ -102,6 +103,7 @@ API Key 只保存在用户本机浏览器的 `chrome.storage.local` 中。
 - OpenAI Audio：`API Key` 填 OpenAI API Key，模型默认 `gpt-4o-mini-transcribe`。
 - Deepgram：`API Key` 填 Deepgram API Key，模型默认 `nova-3`。
 - AssemblyAI：`API Key` 填 AssemblyAI API Key。
+- MiniMax 歌词提取（实验）：`API Key` 填 MiniMax API Key，模型固定 `music-cover`。当前调用 MiniMax 翻唱前处理接口读取 `formatted_lyrics`，适合音乐/歌词提取，不是标准短视频口播 ASR。
 
 平台和上传方式：
 
@@ -116,6 +118,7 @@ API Key 只保存在用户本机浏览器的 `chrome.storage.local` 中。
 - 腾讯云：抖音本地音频上传不超过 5MB；超过 5MB 需要先上传到腾讯 COS，再用 COS URL 创建识别任务。
 - OpenAI Audio：浏览器下载后上传，单文件不超过 25MB。
 - Deepgram / AssemblyAI：当前插件只传公开 URL。
+- MiniMax：当前只传公开 URL 到 `music_cover_preprocess`，要求参考音频 6 秒至 6 分钟、最大 50MB，并更适合音乐歌词场景；普通视频口播不保证稳定。
 
 ## 详细配置教程
 

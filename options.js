@@ -53,6 +53,7 @@ function syncProviderView() {
     openai: ['gpt-4o-mini-transcribe', 'OpenAI 转写模型'],
     deepgram: ['nova-3', 'Deepgram 预录音模型'],
     assemblyai: ['', 'AssemblyAI 可留空'],
+    minimax: ['music-cover', 'MiniMax 翻唱前处理模型，仅支持 music-cover'],
     custom: ['', '自定义厂商模型名，可留空'],
   };
   const [placeholder, help] = modelDefaults[provider] || modelDefaults.custom;

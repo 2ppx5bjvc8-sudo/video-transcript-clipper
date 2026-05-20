@@ -20,6 +20,7 @@
         <option value="openai">OpenAI Audio</option>
         <option value="deepgram">Deepgram</option>
         <option value="assemblyai">AssemblyAI</option>
+        <option value="minimax">MiniMax 歌词提取（实验）</option>
         <option value="custom">自定义厂商模板</option>
       </select>
     </label>
@@ -198,6 +199,7 @@ DashScope 文档：https://help.aliyun.com/zh/model-studio/
 四、其他厂商和自定义模板
 OpenAI：浏览器下载后上传，单文件不超过 25MB。
 Deepgram / AssemblyAI：当前只提交公开 URL，适合小红书，不适合抖音防盗链 URL。
+MiniMax：当前接入 MiniMax 翻唱前处理接口，读取 formatted_lyrics 字段，适合音乐/歌词提取场景；它不是标准口播 ASR，普通短视频转写不保证稳定。
 自定义厂商模板：适合简单 HTTP POST 接口；不支持复杂签名、复杂轮询、回调、对象存储中转。</pre>
       <p>API Key 只保存在本机浏览器。服务商额度、计费和可用地区以各自控制台为准。</p>
     </section>
