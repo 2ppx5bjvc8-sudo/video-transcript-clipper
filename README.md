@@ -377,12 +377,11 @@ node --check lib/markdown.js
 node --check lib/storage.js
 ```
 
-## 关于作者
+## 项目来源与维护
 
-- 🔥 获客操盘手，累计操盘成交 2 亿
-- 🤖 AI 学习者，探索新时代的获客姿势
-- 💡 公众号「BookNote」
-- 🐦 X: https://x.com/Dunduncoming
+本仓库基于 `Yinmu/video-transcript-clipper` 修改和维护，遵循 MIT License。
+
+后续可以继续在此基础上改进提取稳定性、转写服务接入、界面体验和导出格式。
 
 ## License
 
